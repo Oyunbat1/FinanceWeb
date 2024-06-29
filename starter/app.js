@@ -1,4 +1,3 @@
-// Ð”ÑÐ»Ð³ÑÑ†Ñ‚ÑÐ¹ Ð°Ð¶Ð¸Ð»Ð»Ð°Ñ… ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ð»ÐµÑ€
 var uiController = (function() {
   var DOMstrings = {
     inputType: ".add__type",
@@ -69,12 +68,11 @@ var uiController = (function() {
     },
 
     displayPercentages: function(allPercentages) {
-      // Ð—Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ NodeList-Ð¸Ð¹Ð³ Ð¾Ð»Ð¾Ñ…
+
       var elements = document.querySelectorAll(
         DOMstrings.expensePercentageLabel
       );
 
-      // Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚ Ð±Ð¾Ð»Ð³Ð¾Ð½Ñ‹ Ñ…ÑƒÐ²ÑŒÐ´ Ð·Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ Ñ…ÑƒÐ²Ð¸Ð¹Ð³ Ð¼Ð°ÑÑÐ¸Ð²Ð°Ð°Ñ Ð°Ð²Ñ‡ ÑˆÐ¸Ð²Ð¶ Ð¾Ñ€ÑƒÑƒÐ»Ð°Ñ…
       nodeListForeach(elements, function(el, index) {
         el.textContent = allPercentages[index];
       });
@@ -132,7 +130,7 @@ var uiController = (function() {
     },
 
     addListItem: function(item, type) {
-      // ÐžÑ€Ð»Ð¾Ð³Ð¾ Ð·Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¸Ð¹Ð³ Ð°Ð³ÑƒÑƒÐ»ÑÐ°Ð½ html-Ð¸Ð¹Ð³ Ð±ÑÐ»Ñ‚Ð³ÑÐ½Ñ.
+
       var html, list;
       if (type === "inc") {
         list = DOMstrings.incomeList;
@@ -143,18 +141,17 @@ var uiController = (function() {
         html =
           '<div class="item clearfix" id="exp-%id%"><div class="item__description">$$DESCRIPTION$$</div>          <div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn">                <i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
-      // Ð¢ÑÑ€ HTML Ð´Ð¾Ñ‚Ñ€Ð¾Ð¾ Ð¾Ñ€Ð»Ð¾Ð³Ð¾ Ð·Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ ÑƒÑ‚Ð³ÑƒÑƒÐ´Ñ‹Ð³ REPLACE Ð°ÑˆÐ¸Ð³Ð»Ð°Ð¶ Ó©Ó©Ñ€Ñ‡Ð¸Ð»Ð¶
+
       html = html.replace("%id%", item.id);
       html = html.replace("$$DESCRIPTION$$", item.description);
       html = html.replace("$$VALUE$$", formatMoney(item.value, type));
 
-      // Ð‘ÑÐ»Ñ‚Ð³ÑÑÑÐ½ HTML ÑÑ DOM Ñ€ÑƒÑƒ Ñ…Ð¸Ð¹Ð¶ Ó©Ð³Ð½Ó©.
+
       document.querySelector(list).insertAdjacentHTML("beforeend", html);
     }
   };
 })();
 
-// Ð¡Ð°Ð½Ñ…Ò¯Ò¯Ñ‚ÑÐ¹ Ð°Ð¶Ð¸Ð»Ð»Ð°Ñ… ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ð»ÐµÑ€
 var financeController = (function() {
   // private data
   var Income = function(id, description, value) {
@@ -209,16 +206,13 @@ var financeController = (function() {
 
   return {
     tusuvTootsooloh: function() {
-      // ÐÐ¸Ð¹Ñ‚ Ð¾Ñ€Ð»Ð¾Ð³Ñ‹Ð½ Ð½Ð¸Ð¹Ð»Ð±ÑÑ€Ð¸Ð¹Ð³ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
+
       calculateTotal("inc");
 
-      // ÐÐ¸Ð¹Ñ‚ Ð·Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ Ð½Ð¸Ð¹Ð»Ð±ÑÑ€Ð¸Ð¹Ð³ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
       calculateTotal("exp");
 
-      // Ð¢Ó©ÑÐ²Ð¸Ð¹Ð³ ÑˆÐ¸Ð½ÑÑÑ€ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
       data.tusuv = data.totals.inc - data.totals.exp;
 
-      // ÐžÑ€Ð»Ð¾Ð³Ð¾ Ð·Ð°Ñ€Ð»Ð°Ð³Ñ‹Ð½ Ñ…ÑƒÐ²Ð¸Ð¹Ð³ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
       if (data.totals.inc > 0)
         data.huvi = Math.round((data.totals.exp / data.totals.inc) * 100);
       else data.huvi = 0;
@@ -284,46 +278,41 @@ var financeController = (function() {
   };
 })();
 
-// ÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ñ‹Ð½ Ñ…Ð¾Ð»Ð±Ð¾Ð³Ñ‡ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ð»ÐµÑ€
 var appController = (function(uiController, financeController) {
   var ctrlAddItem = function() {
-    // 1. ÐžÑ€ÑƒÑƒÐ»Ð°Ñ… Ó©Ð³Ó©Ð³Ð´Ð»Ð¸Ð¹Ð³ Ð´ÑÐ»Ð³ÑÑ†ÑÑÑ Ð¾Ð»Ð¶ Ð°Ð²Ð½Ð°.
+
     var input = uiController.getInput();
 
     if (input.description !== "" && input.value !== "") {
-      // 2. ÐžÐ»Ð¶ Ð°Ð²ÑÐ°Ð½ Ó©Ð³Ó©Ð³Ð´Ð»Ò¯Ò¯Ð´ÑÑ ÑÐ°Ð½Ñ…Ò¯Ò¯Ð³Ð¸Ð¹Ð½ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ð»ÐµÑ€Ñ‚ Ð´Ð°Ð¼Ð¶ÑƒÑƒÐ»Ð¶ Ñ‚ÑÐ½Ð´ Ñ…Ð°Ð´Ð³Ð°Ð»Ð½Ð°.
+
       var item = financeController.addItem(
         input.type,
         input.description,
         input.value
       );
 
-      // 3. ÐžÐ»Ð¶ Ð°Ð²ÑÐ°Ð½ Ó©Ð³Ó©Ð³Ð´Ð»Ò¯Ò¯Ð´ÑÑ Ð²ÑÐ± Ð´ÑÑÑ€ÑÑ Ñ‚Ð¾Ñ…Ð¸Ñ€Ð¾Ñ… Ñ…ÑÑÑÐ³Ñ‚ Ð½ÑŒ Ð³Ð°Ñ€Ð³Ð°Ð½Ð°
       uiController.addListItem(item, input.type);
       uiController.clearFields();
 
-      // Ð¢Ó©ÑÐ²Ð¸Ð¹Ð³ ÑˆÐ¸Ð½ÑÑÑ€ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð¾Ð¾Ð´ Ð´ÑÐ»Ð³ÑÑ†ÑÐ½Ð´ Ò¯Ð·Ò¯Ò¯Ð»Ð½Ñ.
       updateTusuv();
     }
   };
 
   var updateTusuv = function() {
-    // 4. Ð¢Ó©ÑÐ²Ð¸Ð¹Ð³ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
+
     financeController.tusuvTootsooloh();
 
-    // 5. Ð­Ñ†ÑÐ¸Ð¹Ð½ Ò¯Ð»Ð´ÑÐ³Ð´ÑÐ»,
+
     var tusuv = financeController.tusviigAvah();
 
-    // 6. Ð¢Ó©ÑÐ²Ð¸Ð¹Ð½ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð³ Ð´ÑÐ»Ð³ÑÑ†ÑÐ½Ð´ Ð³Ð°Ñ€Ð³Ð°Ð½Ð°.
     uiController.tusviigUzuuleh(tusuv);
 
-    // 7. Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚Ò¯Ò¯Ð´Ð¸Ð¹Ð½ Ñ…ÑƒÐ²Ð¸Ð¹Ð³ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð½Ð¾
+
     financeController.calculatePercentages();
 
-    // 8. Ð­Ð»ÐµÐ¼ÐµÐ½Ñ‚Ò¯Ò¯Ð´Ð¸Ð¹Ð½ Ñ…ÑƒÐ²Ð¸Ð¹Ð³ Ñ…Ò¯Ð»ÑÑÐ¶ Ð°Ð²Ð½Ð°
     var allPercentages = financeController.getPercentages();
 
-    // 9. Ð­Ð´Ð³ÑÑÑ€ Ñ…ÑƒÐ²Ð¸Ð¹Ð³ Ð´ÑÐ»Ð³ÑÑ†ÑÐ½Ð´ Ð³Ð°Ñ€Ð³Ð°Ð½Ð°.
+
     uiController.displayPercentages(allPercentages);
   };
 
@@ -353,14 +342,12 @@ var appController = (function(uiController, financeController) {
 
           console.log(type + " ===> " + itemId);
 
-          // 1. Ð¡Ð°Ð½Ñ…Ò¯Ò¯Ð³Ð¸Ð¹Ð½ Ð¼Ð¾Ð´ÑƒÐ»Ð¸Ð°Ñ type, id Ð°ÑˆÐ¸Ð³Ð»Ð°Ð°Ð´ ÑƒÑÑ‚Ð³Ð°Ð½Ð°.
           financeController.deleteItem(type, itemId);
 
-          // 2. Ð”ÑÐ»Ð³ÑÑ† Ð´ÑÑÑ€ÑÑÑ ÑÐ½Ñ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¸Ð¹Ð³ ÑƒÑÑ‚Ð³Ð°Ð½Ð°
+          
           uiController.deleteListItem(id);
 
-          // 3. Ò®Ð»Ð´ÑÐ³Ð´ÑÐ» Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð³ ÑˆÐ¸Ð½ÑÑ‡Ð¸Ð»Ð¶ Ñ…Ð°Ñ€ÑƒÑƒÐ»Ð½Ð°.s
-          // Ð¢Ó©ÑÐ²Ð¸Ð¹Ð³ ÑˆÐ¸Ð½ÑÑÑ€ Ñ‚Ð¾Ð¾Ñ†Ð¾Ð¾Ð»Ð¾Ð¾Ð´ Ð´ÑÐ»Ð³ÑÑ†ÑÐ½Ð´ Ò¯Ð·Ò¯Ò¯Ð»Ð½Ñ.
+          
           updateTusuv();
         }
       });
