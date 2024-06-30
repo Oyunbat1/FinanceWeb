@@ -57,7 +57,7 @@ var uiController = (function() {
       var unuudur = new Date();
 
       document.querySelector(DOMstrings.dateLabel).textContent =
-        unuudur.getFullYear() + " оны " + unuudur.getMonth() + " сар ";
+        unuudur.getFullYear() + "оны" + unuudur.getMonth() + "сар ";
     },
 
     changeType: function() {
