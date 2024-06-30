@@ -59,7 +59,6 @@ var uiController = (function() {
       document.querySelector(DOMstrings.dateLabel).textContent =
         unuudur.getFullYear() + "оны" + unuudur.getMonth() + "сар ";
     },
-
     changeType: function() {
       var fields = document.querySelectorAll(
         DOMstrings.inputType +
@@ -76,6 +75,8 @@ var uiController = (function() {
       document.querySelector(DOMstrings.addBtn).classList.toggle("red");
 
     },
+}.
+
 
     getInput: function() {
       return {
