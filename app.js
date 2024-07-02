@@ -57,8 +57,9 @@ var uiController = (function() {
       var unuudur = new Date();
 
       document.querySelector(DOMstrings.dateLabel).textContent =
-        unuudur.getFullYear() + "оны" + unuudur.getMonth() + "сар ";
+        unuudur.getFullYear() + " он " + unuudur.getMonth() + " сар  ";
     },
+
     changeType: function() {
       var fields = document.querySelectorAll(
         DOMstrings.inputType +
@@ -73,10 +74,8 @@ var uiController = (function() {
       });
 
       document.querySelector(DOMstrings.addBtn).classList.toggle("red");
-
+      // location = "http://1234.mn/course";
     },
-}.
-
 
     getInput: function() {
       return {
@@ -87,7 +86,7 @@ var uiController = (function() {
     },
 
     displayPercentages: function(allPercentages) {
-
+   
       var elements = document.querySelectorAll(
         DOMstrings.expensePercentageLabel
       );
@@ -149,7 +148,7 @@ var uiController = (function() {
     },
 
     addListItem: function(item, type) {
-  
+      
       var html, list;
       if (type === "inc") {
         list = DOMstrings.incomeList;
@@ -160,11 +159,12 @@ var uiController = (function() {
         html =
           '<div class="item clearfix" id="exp-%id%"><div class="item__description">$$DESCRIPTION$$</div>          <div class="right clearfix"><div class="item__value">$$VALUE$$</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn">                <i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
-
+     
       html = html.replace("%id%", item.id);
       html = html.replace("$$DESCRIPTION$$", item.description);
       html = html.replace("$$VALUE$$", formatMoney(item.value, type));
 
+      
       document.querySelector(list).insertAdjacentHTML("beforeend", html);
     }
   };
@@ -229,10 +229,8 @@ var financeController = (function() {
 
       calculateTotal("exp");
 
-
       data.tusuv = data.totals.inc - data.totals.exp;
 
-      
       if (data.totals.inc > 0)
         data.huvi = Math.round((data.totals.exp / data.totals.inc) * 100);
       else data.huvi = 0;
@@ -298,13 +296,14 @@ var financeController = (function() {
   };
 })();
 
+
 var appController = (function(uiController, financeController) {
   var ctrlAddItem = function() {
-  
+
     var input = uiController.getInput();
 
     if (input.description !== "" && input.value !== "") {
-     
+
       var item = financeController.addItem(
         input.type,
         input.description,
@@ -319,21 +318,20 @@ var appController = (function(uiController, financeController) {
   };
 
   var updateTusuv = function() {
-
+ 
     financeController.tusuvTootsooloh();
-
 
     var tusuv = financeController.tusviigAvah();
 
     uiController.tusviigUzuuleh(tusuv);
 
-
+   
     financeController.calculatePercentages();
 
 
     var allPercentages = financeController.getPercentages();
 
-  
+   
     uiController.displayPercentages(allPercentages);
   };
 
@@ -360,20 +358,20 @@ var appController = (function(uiController, financeController) {
         var id = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
         if (id) {
-         
+          // inc-2
           var arr = id.split("-");
           var type = arr[0];
           var itemId = parseInt(arr[1]);
 
           console.log(type + " ===> " + itemId);
 
-
+      
           financeController.deleteItem(type, itemId);
 
-
+         
           uiController.deleteListItem(id);
 
-          
+        
           updateTusuv();
         }
       });
@@ -415,3 +413,6 @@ income & expense - д тааруулан item гэсэн хувьсагчийг 
 /* 6. Одоо хэрэглэгчийн оруулсан list-нд байгаа  утгуудаа устгах. Үүнийн хийхэд parent болон child талаар ойлголттой болох хэрэгтэй.*/
 
 /* 7. Тухайн зарлага бүрийн хувийг тооцоолох. */
+
+
+
